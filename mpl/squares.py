@@ -27,5 +27,5 @@ ax.tick_params(axis = 'both', which = 'major',labelsize = 14)
 
 # plt.show()
 
-# save the figure
+# save the figure with name '#.png'
 plt.savefig('square_plot.png', bbox_inches = 'tight')
