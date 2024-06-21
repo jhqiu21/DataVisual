@@ -13,7 +13,8 @@ fig, ax = plt.subplots()
 # ax.plot(input, output, linewidth = 3)
 
 # ax.scatter(input, output, s = 100)
-ax.scatter(x_value, y_value, s = 5)
+# Use `c` to set color. We can also use RGB format i.e. c = (0, 0.8, 0)
+ax.scatter(x_value, y_value, c = 'red', s = 5)
 ax.axis([0, 1100, 0, 1100000])
 
 # set the title and x,y-axis of the figure
@@ -24,4 +25,7 @@ ax.set_ylabel("y-axis", fontsize = 14)
 # set the fontsize of x,y-label of the figure
 ax.tick_params(axis = 'both', which = 'major',labelsize = 14)
 
-plt.show()
+# plt.show()
+
+# save the figure
+plt.savefig('square_plot.png', bbox_inches = 'tight')
