@@ -1,7 +1,7 @@
 # Generate and save 'random walk' figures 
 
 import matplotlib.pyplot as plt
-from random_walk import RandomWalk
+from mpl.random_walk.random_walk import RandomWalk
 
 total_number = int(input("Enter the number of figures you want to generate: "))
 count = 1
