@@ -33,6 +33,7 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     # my apps
     'visual_logs',
+    'users',
     # default application
     "django.contrib.admin",
     "django.contrib.auth",
