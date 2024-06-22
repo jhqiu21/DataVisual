@@ -34,6 +34,10 @@ INSTALLED_APPS = [
     # my apps
     'visual_logs',
     'users',
+
+    # 3rd app
+    'bootstrap4',
+
     # default application
     "django.contrib.admin",
     "django.contrib.auth",
