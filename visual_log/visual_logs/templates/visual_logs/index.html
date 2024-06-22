@@ -1,0 +1,13 @@
+<!--Inherent from base.html-->
+{% extends "visual_logs/base.html" %}
+
+{% block content %}
+<div class="jumbotron">
+    <h1 class="display-3">Track your Data.</h1>
+
+    <p class="lead">Visual Log helps you visualize your data set for your DS requirements</p>
+
+    <a class="btn btn-lg btn-primary" href="{% url 'users:register' %}"
+        role="button">Register &raquo;</a>
+  </div>
+{% endblock content %}
