@@ -1,15 +1,44 @@
 {% extends "visual_logs/base.html" %}
+{% load bootstrap4 %}
+
+{% block page_header %}
+  <h3>Edit entry in <a href="{% url 'visual_logs:topic' topic.id %}">{{ topic }}</a></h3>
+{% endblock page_header %}
 
 {% block content %}
 
-  <p><a href="{% url 'visual_logs:topic' topic.id %}">{{ topic }}</a></p>
-    
-  <p>Edit entry:</p>
-    
   <form action="{% url 'visual_logs:edit_entry' entry.id %}" method='post'>
     {% csrf_token %}
-    {{ form.as_p }}
-    <button name="submit">Save changes</button>
+    {% bootstrap_form form %}
+    {% buttons %}
+    <button name="submit" class="btn btn-outline-primary">Save changes</button>
+    <button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#staticBackdrop">
+      Delete this Entry
+    </button>
+    {% endbuttons %}
   </form>
+
+  <div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="staticBackdropLabel">Delete this entry!</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          You will delete this entry, are you sure?
+        </div>
+        <div class="modal-footer">
+          <form method="post" action="{% url 'visual_logs:delete_entry' entry.id %}">
+            {% csrf_token %}
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancle</button>
+            <button  class="btn btn-danger" name="submit">Delete</a>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
 
 {% endblock content %}

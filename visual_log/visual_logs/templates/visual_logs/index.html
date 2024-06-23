@@ -1,13 +1,25 @@
-<!--Inherent from base.html-->
 {% extends "visual_logs/base.html" %}
+{% load bootstrap4 %}
 
 {% block content %}
 <div class="jumbotron">
-    <h1 class="display-3">Track your Data.</h1>
-
-    <p class="lead">Visual Log helps you visualize your data set for your DS requirements</p>
-
-    <a class="btn btn-lg btn-primary" href="{% url 'users:register' %}"
-        role="button">Register &raquo;</a>
+  <h2 class="display-4">Track your Data</h2>
+  <p class="lead">Visual Log helps you visualize your data set for your DS requirements</p>
+  <hr class="my-4">
+  {% if user.is_authenticated %}
+  <a class="btn btn-lg btn-primary" href="{% url 'visual_logs:topics' %}" role="button">Get Start &raquo;</a>
+  {% else %}
+  <a class="btn btn-lg btn-primary" href="{% url 'users:register' %}" role="button">Sign up &raquo;</a>
+  {% endif %}
+</div>
+<div class="card">
+  <div class="card-body">
+    <div class="alert alert-primary" role="alert">
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-exclamation-circle-fill" viewBox="0 0 16 16">
+        <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M8 4a.905.905 0 0 0-.9.995l.35 3.507a.552.552 0 0 0 1.1 0l.35-3.507A.905.905 0 0 0 8 4m.002 6a1 1 0 1 0 0 2 1 1 0 0 0 0-2"/>
+      </svg>
+      &nbsp New Features are coming soon. Keep an eye on this section for an exciting upcoming features!
+    </div>
   </div>
+</div>
 {% endblock content %}

@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect, Http404
 from .models import Topic, Entry
@@ -31,7 +31,7 @@ def new_topic(request):
     else:
         form = TopicForm(data=request.POST)
         if form.is_valid():
-            new_topic = form.save()
+            new_topic = form.save(commit=False)
             new_topic.owner = request.user
             new_topic.save()
             return redirect('visual_logs:topics')
@@ -60,7 +60,6 @@ def new_entry(request, topic_id):
 def edit_entry(request, entry_id):
     entry = Entry.objects.get(id=entry_id)
     topic = entry.topic
-
     if request.method != 'POST':
         form = EntryForm(instance=entry)
     else:
@@ -70,3 +69,21 @@ def edit_entry(request, entry_id):
             return redirect('visual_logs:topic', topic_id=topic.id)
     context = {'entry': entry, 'topic': topic, 'form': form}
     return render(request, 'visual_logs/edit_entry.html', context)
+
+@login_required
+def delete_entry(request, entry_id):
+    entry = Entry.objects.get(id=entry_id)
+    topic = entry.topic
+    if request.method == 'POST':
+        entry.delete()
+        return redirect('visual_logs:topic', topic_id=topic.id)
+    context = {'entry': entry, 'topic': topic}
+    return render(request, context)
+
+@login_required
+def delete_topic(request, topic_id):
+    topic = Topic.objects.get(id=topic_id)
+    if request.method == 'POST':
+        topic.delete()
+        return redirect('visual_logs:topics')
+    return render(request)
