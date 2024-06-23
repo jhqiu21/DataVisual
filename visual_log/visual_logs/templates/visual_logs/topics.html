@@ -1,21 +1,27 @@
 <!--Inherent from base.html-->
 {% extends "visual_logs/base.html" %}
+{% load bootstrap4 %}
 
 {% block page_header %}
-  <h1>Topics</h1>
+  <div class="btn-toolbar justify-content-between" role="toolbar" aria-label="Toolbar with button groups">
+    <h2>Topics</h2>
+    <h3><a href="{% url 'visual_logs:new_topic' %}" class="btn btn-outline-primary">Add a new topic</a></h3>
+  </div>
 {% endblock page_header %}
 
 {% block content %}
-  <ul>
+  
     {% for topic in topics %}
-      <li><h3>
-        <a href="{% url 'visual_logs:topic' topic.id %}">{{ topic }}</a>
-      </h3></li>
+    <div class="list-group">
+      <h5><a href="{% url 'visual_logs:topic' topic.id %}" class="list-group-item list-group-item-action">{{ topic }}</a></h5>
+    </div>
     {% empty %}
-      <li><h3>No topics have been added yet.</h3></li>
+    <div class="alert alert-primary lead" role="alert">
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-exclamation-circle-fill" viewBox="0 0 16 16">
+        <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M8 4a.905.905 0 0 0-.9.995l.35 3.507a.552.552 0 0 0 1.1 0l.35-3.507A.905.905 0 0 0 8 4m.002 6a1 1 0 1 0 0 2 1 1 0 0 0 0-2"/>
+      </svg>
+      &nbsp No topics have been added yet.
+    </div>
     {% endfor %}
-  </ul>
-
-  <h3><a href="{% url 'visual_logs:new_topic' %}">Add a new topic</a></h3>
-
+  
 {% endblock content %}

@@ -1,29 +1,61 @@
 {% extends 'visual_logs/base.html' %}
+{% load bootstrap4 %}
 
 {% block page_header %}
-  <h3>{{ topic }}</h3>
+  <div class="btn-toolbar justify-content-between" role="toolbar" aria-label="Toolbar with button groups">
+    <h2>{{ topic }}</h2>
+    <h3><a href="{% url 'visual_logs:new_entry' topic.id %}" class="btn btn-outline-primary">Add new entry</a></h3>
+  </div>
 {% endblock page_header %}
 
 {% block content %}
-  <p>
-    <a href="{% url 'visual_logs:new_entry' topic.id %}">Add new entry</a>
-  </p>
 
-  <ul>
   {% for entry in entries %}
     <div class="card mb-3">
-      <h4 class="card-header">
+      <h5 class="card-header btn-toolbar justify-content-between" role="toolbar" aria-label="Toolbar with button groups">
         {{ entry.date_added|date:'M d, Y H:i' }}
-        <small><a href="{% url 'visual_logs:edit_entry' entry.id %}">
-            edit entry</a></small>
-      </h4>
+        <small><a href="{% url 'visual_logs:edit_entry' entry.id %}">Edit entry</a></small>
+      </h5>
       <div class="card-body">
         {{ entry.text|linebreaks }}
       </div>
     </div>
   {% empty %}
-    <p>There are no entries for this topic yet.</p>
+    <div class="alert alert-primary lead" role="alert">
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-exclamation-circle-fill" viewBox="0 0 16 16">
+        <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M8 4a.905.905 0 0 0-.9.995l.35 3.507a.552.552 0 0 0 1.1 0l.35-3.507A.905.905 0 0 0 8 4m.002 6a1 1 0 1 0 0 2 1 1 0 0 0 0-2"/>
+      </svg>
+      &nbsp There are no entries for this topic yet.
+    </div>
   {% endfor %}
 
+  {% buttons %}
+    <button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#staticBackdrop">
+      Delete this Topic
+    </button>
+  {% endbuttons %}
+
+  <div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="staticBackdropLabel">Delete this Topic!</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          You will delete this topic and all entries associate with this topic, are you sure?
+        </div>
+        <div class="modal-footer">
+          <form method="post" action="{% url 'visual_logs:delete_topic' topic.id %}">
+            {% csrf_token %}
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancle</button>
+            <button  class="btn btn-danger" name="submit">Delete</a>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
 {% endblock content %}
 
