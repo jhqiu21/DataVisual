@@ -33,6 +33,17 @@ source venv/bin/activate
 python manage.py runserver
 ```
 
+## Data Set Source
+
+We currently focus on [TCGA Data Set](https://www.cancer.gov/ccg/research/genome-sequencing/tcga) to analysis the distribution of different cancer.
+
+## Common Skills
+
+You may refer to the following folder in the repo for more details
+
+- [common plot](mpl/)
+- [api_visual](api_visual/python_repos.py)
+- [file_visual](file_visual/)
 
 ## Contribute
 
