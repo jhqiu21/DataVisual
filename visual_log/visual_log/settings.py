@@ -34,6 +34,7 @@ INSTALLED_APPS = [
     # my apps
     'visual_logs',
     'users',
+    'visual',
 
     # 3rd app
     'bootstrap4',
