@@ -9,12 +9,13 @@ class UploadFileForm(forms.ModelForm):
             'id': 'customFile'
         })
     )
+    
     title = forms.CharField(
         min_length=0,
         max_length=50,
         widget=forms.TextInput(attrs={
             'class': 'form-control',
-            'placeholder': 'Enter title here'
+            'placeholder': 'Enter the plot title here'
         })
     )
 

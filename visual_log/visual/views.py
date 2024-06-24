@@ -16,15 +16,15 @@ from datetime import datetime
 # figure processing
 from io import StringIO, BytesIO
 import base64
-import logging
-import os
-from django.conf import settings
+
 
 # Create your views here.
-@login_required
+# @login_required
 def upload_file(request):
     if request.method == "POST":
+        # get file and plot_title from form
         form = UploadFileForm(request.POST, request.FILES)
+        plot_title = request.POST.get('title')
         if form.is_valid():
             # get file object from request
             uploaded_file = request.FILES["file"]
@@ -50,14 +50,14 @@ def upload_file(request):
                     lows.append(low)
 
             plt.style.use('seaborn-v0_8')
-            fig, ax = plt.subplots()
+            fig, ax = plt.subplots(dpi=360)
             # param alpha set the transprancy of the line, decreasing from 0 to 1
             ax.plot(dates, highs, c = 'red', alpha = 0.5)
             ax.plot(dates, lows, c = 'blue', alpha = 0.5)
             # fill the area between the high and low
             ax.fill_between(dates, highs, lows, facecolor = 'blue', alpha = 0.1)
             # set the config of the figure
-            ax.set_title("Title", fontsize = 24)
+            ax.set_title(plot_title, fontsize = 24)
             ax.set_xlabel('', fontsize = 14)
             # use 'autofmt_xdate()' to draw inclined date to avoid overlapping
             fig.autofmt_xdate() 
@@ -76,7 +76,8 @@ def upload_file(request):
             # decodes the base64 bytes to an ASCII string
             image_base64 = base64.b64encode(buf.read()).decode('ascii')
             # display the image using this base64 string
-            return render(request, 'visual/plot.html', {'image_base64': image_base64})
+            context = {'image_base64': image_base64, 'plot_title': plot_title}
+            return render(request, 'visual/plot.html', context)
     else:
         form = UploadFileForm()
     context = {'form': form}
