@@ -28,6 +28,10 @@ python -m venv venv
 ```
 source venv/bin/activate
 ```
+- third step : install package and ibrary from requirements.txt
+```
+pip install -r requirements.txt
+```
 - Run django server
 ```
 python manage.py runserver
