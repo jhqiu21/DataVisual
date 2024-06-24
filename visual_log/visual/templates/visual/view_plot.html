@@ -1,0 +1,7 @@
+{% extends "visual_logs/base.html" %}
+
+{% block content %}
+  <h1>Plot</h1>
+  <img src="{% url 'visual:view_plot' %}" alt="Plot">
+  <a href="{{ img_url }}" download="plot.png">Download Plot</a>
+{% endblock %}

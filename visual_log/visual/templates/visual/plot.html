@@ -1,0 +1,12 @@
+{% extends "visual_logs/base.html" %}
+
+{% block page_header %}
+  <h3>Plot</a></h3>
+{% endblock page_header %}
+
+{% block content %}
+
+    <img src="data:image/png;base64,{{ image_base64 }}" alt="Plot Image">
+    <div><a href="{% url 'visual:upload_file' %}">Upload another file</a></div>
+    
+{% endblock %}
