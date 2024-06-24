@@ -2,15 +2,36 @@
 {% load bootstrap4 %}
 
 {% block page_header %}
-  <h3>Upload File</a></h3>
+  <h3>Upload File</h3>
 {% endblock page_header %}
 
 {% block content %}
-  <form method="post" action="{% url 'visual:upload_file'%}" enctype="multipart/form-data">
-    {% csrf_token %}
-    {% bootstrap_form form %}
-    {% buttons %}
-    <button name='submit' class="btn btn-outline-primary">Upload</button>
-    {% endbuttons %}
-  </form>
+<div class="card">
+  <div class="card-body">
+    <form method="post" action="{% url 'visual:upload_file'%}" enctype="multipart/form-data">
+      {% csrf_token %}
+      
+  
+
+      <div class="mb-3 row">
+        <label for="staticEmail" class="col-sm-2 col-form-label">Select a File</label>
+        <div class="col-sm-10">
+          <label class="form-control" for="customFile" >{{ form.file }}</label>
+        </div>
+      </div>
+      
+      <div class="mb-3 row">
+        <label class="col-sm-2 col-form-label">Plot Title</label>
+        <div class="col-sm-10">{{ form.title }}</div>
+      </div>
+
+      {% buttons %}
+      <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+        <button type="submit" class="btn btn-outline-primary">Upload</button>
+      </div>
+      {% endbuttons %}
+    </form>
+  </div>
+</div>
+  
 {% endblock %}
