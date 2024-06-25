@@ -19,7 +19,20 @@ class UploadFileForm(forms.ModelForm):
         })
     )
 
+    type = forms.fields.ChoiceField(
+        choices=(
+            (1, "Histogram"), 
+            (2, "Cumulative distributions"), 
+            (3, "Bar"), 
+        ),
+        label="type",
+        initial=1,
+        widget=forms.widgets.Select(attrs={
+            'class': 'form-select'
+        })
+    )
+
     class Meta:
         model = UploadedFile
-        fields = ['file', 'title']
+        fields = ['file', 'title', 'type']
         
