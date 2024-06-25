@@ -16,7 +16,7 @@ def cumulative_distributions(data):
         try: 
             age = int(row[3])
         except ValueError:
-            error_msg += f"Missing data for {id} - {type}" + '\n'
+            error_msg += f"Missing data for {id} - {type}" + '<br>'
         else:     
             ages.append(age)
     plt.style.use('seaborn-v0_8')

@@ -9,7 +9,7 @@ def histogram(data):
     reader = data.getFileReader()
     title = data.plot_title
     header_row = next(reader)
-    error_msg = ""
+    error_msg = []
     # get TMAX in 5th row in the csv file
     ages = []
     for row in reader:
@@ -18,7 +18,7 @@ def histogram(data):
         try: 
             age = int(row[3])
         except ValueError:
-            error_msg += f"Missing data for {id} - {type}" + '\n'
+            error_msg.append(f"Missing data for {id} - {type}")
         else:     
             ages.append(age)
     plt.style.use('seaborn-v0_8')
