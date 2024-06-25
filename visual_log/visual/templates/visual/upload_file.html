@@ -1,0 +1,51 @@
+{% extends "visual_logs/base.html" %}
+{% load bootstrap4 %}
+
+{% block page_header %}
+  <h3>Upload File</h3>
+{% endblock page_header %}
+
+{% block content %}
+
+<div class="alert alert-primary" role="alert">
+  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-exclamation-circle-fill" viewBox="0 0 16 16">
+    <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M8 4a.905.905 0 0 0-.9.995l.35 3.507a.552.552 0 0 0 1.1 0l.35-3.507A.905.905 0 0 0 8 4m.002 6a1 1 0 1 0 0 2 1 1 0 0 0 0-2"/>
+  </svg>
+  &nbsp Data Visual only support clinical data from <a href="https://portal.gdc.cancer.gov/analysis_page?app=Projects">TCGA</a> now!
+</div>
+</div>
+
+
+
+<div class="card">
+  <div class="card-body">
+    <form method="post" action="{% url 'visual:upload_file'%}" enctype="multipart/form-data">
+      {% csrf_token %}
+      
+      <div class="mb-3 row">
+        <label for="staticEmail" class="col-sm-2 col-form-label">Select a File</label>
+        <div class="col-sm-10">
+          <label class="form-control" for="customFile" >{{ form.file }}</label>
+        </div>
+      </div>
+      
+      <div class="mb-3 row">
+        <label class="col-sm-2 col-form-label">Plot Title</label>
+        <div class="col-sm-10">{{ form.title }}</div>
+      </div>
+
+      <div class="mb-3 row">
+        <label class="col-sm-2 col-form-label">Select Type</label>
+        <div class="col-sm-10">{{ form.type }}</div>
+      </div>
+
+      {% buttons %}
+      <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+        <button type="submit" class="btn btn-outline-primary">Upload</button>
+      </div>
+      {% endbuttons %}
+    </form>
+  </div>
+</div>
+  
+{% endblock %}

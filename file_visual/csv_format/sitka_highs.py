@@ -1,9 +1,11 @@
+
+
 import csv
 import matplotlib.pyplot as plt
 from datetime import datetime
 
 # we open the csv file and assign the file object to f
-filename = 'visual/csv_format/data/death_valley_2018_simple.csv'
+filename = 'file_visual/csv_format/data/sitka_weather_07-2018_simple.csv'
 with open(filename) as f:
     # create a reader object associate with the file we open before
     reader = csv.reader(f)
@@ -40,6 +42,5 @@ ax.set_ylabel("Temperature(F)", fontsize = 14)
 ax.tick_params(axis = 'both', which = 'major', labelsize = 14)
 
 plt.show()
-
 
 
