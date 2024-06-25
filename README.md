@@ -49,6 +49,10 @@ You may refer to the following folder in the repo for more details
 - [api_visual](api_visual/python_repos.py)
 - [file_visual](file_visual/)
 
+## Test Data File
+
+- [TCGA Clinical Data Set](TCGA/)
+
 ## Contribute
 
 If you are have a particular new method and more modern technology to apply in this project, please send merge request!
