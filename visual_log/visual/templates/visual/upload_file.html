@@ -28,15 +28,69 @@
           <label class="form-control" for="customFile" >{{ form.file }}</label>
         </div>
       </div>
-      
-      <div class="mb-3 row">
-        <label class="col-sm-2 col-form-label">Plot Title</label>
-        <div class="col-sm-10">{{ form.title }}</div>
-      </div>
 
+      
       <div class="mb-3 row">
         <label class="col-sm-2 col-form-label">Select Type</label>
         <div class="col-sm-10">{{ form.type }}</div>
+      </div>
+
+      <h5>Set parameters</h5>
+
+      <div class="mb-3 row">
+        <label class="col-sm-1 col-form-label">Bin</label>
+        <div class="col-sm-2">{{ form.bin }}</div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-sm-1 col-form-label">Para</label>
+        <div class="col-sm-11">
+          {{ form.parameter }}
+          <b class="text-muted">Attention</b>
+          <ul class="text-muted">
+            <li>Please enter parameters splited by '#' in 'Independet#Dependent' order.</li>
+            <li>Split parameters by '/' if you want to input more than one parameters in independet or dependent parameters.</li>
+          </ul>
+        </div>
+        
+      </div>
+      
+
+      
+
+
+      <h5>Custom plot title and axis label</h5>
+      <div class="mb-3 row">
+        <label class="col-sm-1 col-form-label">p-title</label>
+        <div class="col-sm-6">{{ form.title }}</div>
+        <label class="col-sm-2 col-form-label" style="text-align: end;">p-fontsize</label>
+        <div class="col-sm-2">{{ form.tfont }}</div>
+      </div>
+
+      <div class="mb-3 row">
+        <label class="col-sm-1 col-form-label">x-title</label>
+        <div class="col-sm-6">{{ form.xtitle }}</div>
+        <label class="col-sm-2 col-form-label" style="text-align: end;">x-fontsize</label>
+        <div class="col-sm-2">{{ form.xfont }}</div>
+      </div>
+
+
+      <div class="mb-3 row">
+        <label class="col-sm-1 col-form-label">y-title</label>
+        <div class="col-sm-6">{{ form.ytitle }}</div>
+        <label class="col-sm-2 col-form-label" style="text-align: end;">y-fontsize</label>
+        <div class="col-sm-2">{{ form.yfont }}</div>
+      </div>
+
+      <h5>Custom Style</h5>
+      <div class="mb-3 row">
+        <label class="col-sm-1 col-form-label">style</label>
+        <div class="col-sm-2">{{ form.style }}</div>
+        <label class="col-sm-1 col-form-label">Legend</label>
+        <div class="col-sm-1">
+          {{ form.legend }}
+        </div>
+        
       </div>
 
       {% buttons %}
@@ -45,6 +99,8 @@
       </div>
       {% endbuttons %}
     </form>
+
+
   </div>
 </div>
   
