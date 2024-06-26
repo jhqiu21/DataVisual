@@ -11,10 +11,10 @@
     {% csrf_token %}
     {% bootstrap_form form %}
     {% buttons %}
-    <button name="submit" class="btn btn-outline-primary">Save changes</button>
-    <button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#staticBackdrop">
-      Delete this Entry
-    </button>
+    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+      <button type="button" class="btn btn-outline-danger me-md-2" data-toggle="modal" data-target="#staticBackdrop">Delete this Entry</button>
+      <button type="button" name="submit" class="btn btn-outline-primary me-md-2">Save changes</button>
+    </div>
     {% endbuttons %}
   </form>
 

@@ -25,7 +25,7 @@
             <h5 class="card-title">Extra Message</h5>
             <p class="card-text">
             {% for msg in message %}  
-              <div>{{ msg }}</div>
+              <div style="font-size: small; color: red;">{{ msg }}</div>
             {% empty %}
               <div>There is no missing data</div>
             {% endfor %}
