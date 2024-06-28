@@ -3,23 +3,29 @@ matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 import pandas as pd
 
+
+
 def cumulative_distributions(data):
     # initialize figure
     plt.style.use(data.style)
     fig, ax = plt.subplots(dpi=360)
     title = data.plot_title
     error_msg = ["Error!"]
-    try:
-        paraXs = data.para_data.get('datas')
-        missing_msg = data.para_data.get('message')
-    except IndexError:
-        error_msg.append("You input an invalid parameter!")
-        return {'figure': fig, 'message': error_msg}
+    data_set = data.para_data.get('datas')
+    missing_msg = data.para_data.get('message')
 
-    ax.ecdf(paraXs[0], label="CDF")
-    ax.hist(paraXs[0], data.bin, density=True, histtype="step",
-            cumulative=True, label="Cumulative histogram")
+    for idx, datas in  enumerate(data_set):
+        try:
+            datas = [eval(i) for i in data_set[idx]]
+        except IndexError:
+            error_msg.append("You input an invalid parameter!")
+            return {'figure': fig, 'message': error_msg}
+        
+        ax.ecdf(datas, label="CDF")
+        ax.hist(datas, data.bin, density=True, histtype="step",
+                cumulative=True, label="Cumulative histogram")
     
+
     # Set the title and labels
     ax.grid(True)
     ax.legend()

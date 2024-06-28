@@ -14,6 +14,7 @@ def confidence_ellipse_gram(data):
     fig, ax_nstd = plt.subplots(figsize=(6, 6), dpi=360)
     title = data.plot_title
     error_msg = ["Error!"]
+    
     try:
         paraXs = data.para_data.get('paraX_datas')
         paraYs = data.para_data.get('paraY_datas')
@@ -21,7 +22,9 @@ def confidence_ellipse_gram(data):
     except IndexError:
         error_msg.append("You input an invalid parameter!")
         return {'figure': fig, 'message': error_msg}
-
+    except TypeError:
+        error_msg.append("Please check your file format!")
+        return {'figure': fig, 'message': error_msg}
     
 
     dependency_nstd = [[0.8, 0.75],[-0.2, 0.35]]
@@ -31,8 +34,8 @@ def confidence_ellipse_gram(data):
     ax_nstd.axvline(c='grey', lw=1)
     ax_nstd.axhline(c='grey', lw=1)
 
-    x = paraXs[0]
-    y = paraYs[0]
+    x = [eval(i) for i in paraXs[0]]
+    y = [eval(i) for i in paraYs[0]]
 
     ax_nstd.scatter(x, y, s=0.5)
 

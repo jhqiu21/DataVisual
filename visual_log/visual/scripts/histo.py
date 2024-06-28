@@ -11,14 +11,25 @@ def histogram(data):
     fig, ax = plt.subplots(dpi=360)
     title = data.plot_title
     error_msg = ["Error!"]
+    
     try:
-        paraXs = data.para_data.get('datas')
+        data_set = data.para_data.get('datas')
         missing_msg = data.para_data.get('message')
-    except IndexError:
-        error_msg.append("You input an invalid parameter!")
+    except TypeError:
+        error_msg.append("Please check your file format!")
         return {'figure': fig, 'message': error_msg}
 
-    ax.hist(paraXs[0], bins=data.bin, edgecolor='black', label=data.para[0])
+    for idx, datas in  enumerate(data_set):
+        try:
+            datas = [eval(i) for i in data_set[idx]]
+        except IndexError:
+            error_msg.append("You input an invalid parameter!")
+            return {'figure': fig, 'message': error_msg}
+        except TypeError:
+            error_msg.append("Please check your file format!")
+            return {'figure': fig, 'message': error_msg}
+
+        ax.hist(datas, bins=data.bin, edgecolor='black', label=data.para[0])
     
     # Set the title and labels
     ax.set_title(title, fontsize=data.plot_title_font)
