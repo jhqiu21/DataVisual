@@ -16,35 +16,43 @@ This project is still under going, there is the features of this tool:
 - Delete target topic and all entries associated with it
 - Add a new entry associate with a specific topic
 - Delete a target entry associate with a specific topic
-- upload file and perform a specific data analysis method (Undergoing)
+- upload file and be able to read the file and get the data set (v1.0)
+- custom the style of the plot (undergoing)
+- perform spcific data visualiztion (undergoing)
+- be about to perform more kinds of ploting (future)
 
 ## Set up
 
-- Create virtual environment in `visual_log` dir
+- Activate virtual environment in `visual_log` dir
 ```
-python -m venv venv
+cd visual_log
 ```
-- Activate virtual environment
+
 ```
 source venv/bin/activate
 ```
-- third step : install package and ibrary from requirements.txt
+- Install package and ibrary from requirements.txt
 ```
 pip install -r requirements.txt
 ```
+
 - Run django server
 ```
 python manage.py runserver
 ```
 
+## Input parameters
+
+You may refer to the [documention](#) and [cheatsheet](#) for more details.
+
 ## Data Set Source
 
-We currently focus on [TCGA Data Set](https://www.cancer.gov/ccg/research/genome-sequencing/tcga) to analysis the distribution of different cancer.
+- We currently focus on [TCGA Data Set](https://www.cancer.gov/ccg/research/genome-sequencing/tcga) to analysis the distribution of different cancer.
+- Update 6.28: Able to adress `.csv/.tsv` file for **numeric** data visualization
 
 ## Common Skills
 
-You may refer to the following folder in the repo for more details
-
+You may refer to the following folder in the repo to learning some basic ploting methods.
 - [common plot](mpl/)
 - [api_visual](api_visual/python_repos.py)
 - [file_visual](file_visual/)
