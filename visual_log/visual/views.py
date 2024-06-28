@@ -8,7 +8,7 @@ from django.http import HttpResponse
 # import necessary lib for data analysis
 import csv
 from .scripts import histo, cdf
-from .scripts.data import Info
+from .scripts.data import Info, FileExpection
 
 
 # figure processing
@@ -22,7 +22,12 @@ def upload_file(request):
         # get file and plot_title from form
         form = UploadFileForm(request.POST, request.FILES)
         if form.is_valid():
-            info = Info(request)
+            try:
+                info = Info(request)
+            except FileExpection as ex:
+                context = {'message': ex.msg}
+                return render(request, 'visual/fail.html', context)
+            
             result = info.getResult()
             fig = result.get('figure')
             message = result.get('message')

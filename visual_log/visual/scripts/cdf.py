@@ -3,33 +3,38 @@ matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 import pandas as pd
 
+
+
 def cumulative_distributions(data):
-    reader = data.getFileReader()
-    title = data.plot_title
-    # 'next()' gets a reader object and returns the next line of the file
-    header_row = next(reader)
-    error_msg = ""
-    ages = []
-    for row in reader:
-        type = str(row[-1])
-        id = str(row[1])
-        try: 
-            age = int(row[3])
-        except ValueError:
-            error_msg += f"Missing data for {id} - {type}" + '\n'
-        else:     
-            ages.append(age)
-    plt.style.use('seaborn-v0_8')
+    # initialize figure
+    plt.style.use(data.style)
     fig, ax = plt.subplots(dpi=360)
+    title = data.plot_title
+    error_msg = ["Error!"]
+    data_set = data.para_data.get('datas')
+    missing_msg = data.para_data.get('message')
 
-    ax.ecdf(ages, label="CDF")
-    n, bins, patches = ax.hist(ages, 25, density=True, histtype="step",
-                               cumulative=True, label="Cumulative histogram")
+    for idx, datas in  enumerate(data_set):
+        try:
+            datas = [eval(i) for i in data_set[idx]]
+        except IndexError:
+            error_msg.append("You input an invalid parameter!")
+            return {'figure': fig, 'message': error_msg}
+        
+        ax.ecdf(datas, label="CDF")
+        ax.hist(datas, data.bin, density=True, histtype="step",
+                cumulative=True, label="Cumulative histogram")
     
-    # Set the title and labels
-    ax.set_title(title, fontsize=24)
-    ax.set_xlabel("Age", fontsize=14)
-    ax.set_ylabel("Number of Patients", fontsize=14)
 
-    result = {'figure': fig, 'message': error_msg}
+    # Set the title and labels
+    ax.grid(True)
+    ax.legend()
+    ax.label_outer()
+    ax.set_title(title, fontsize=data.plot_title_font)
+    ax.set_xlabel(data.x_title, fontsize=data.x_font)
+    ax.set_ylabel(data.y_title, fontsize=data.y_font)
+
+    result = {'figure': fig, 'message': missing_msg}
     return result
+
+

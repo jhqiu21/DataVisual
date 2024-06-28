@@ -3,32 +3,72 @@ matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 import pandas as pd
 from datetime import datetime
+import numpy as np
 
 def histogram(data):
-    # 'next()' gets a reader object and returns the next line of the file
-    reader = data.getFileReader()
-    title = data.plot_title
-    header_row = next(reader)
-    error_msg = ""
-    # get TMAX in 5th row in the csv file
-    ages = []
-    for row in reader:
-        type = str(row[-1])
-        id = str(row[1])
-        try: 
-            age = int(row[3])
-        except ValueError:
-            error_msg += f"Missing data for {id} - {type}" + '\n'
-        else:     
-            ages.append(age)
-    plt.style.use('seaborn-v0_8')
+    # initialize figure
+    plt.style.use(data.style)
     fig, ax = plt.subplots(dpi=360)
-    ax.hist(ages, bins=10, edgecolor='black')
-    # Set the title and labels
-    ax.set_title(title, fontsize=24)
-    ax.set_xlabel("Age", fontsize=14)
-    ax.set_ylabel("Number of Patients", fontsize=14)
+    title = data.plot_title
+    error_msg = ["Error!"]
+    
+    try:
+        data_set = data.para_data.get('datas')
+        missing_msg = data.para_data.get('message')
+    except TypeError:
+        error_msg.append("Please check your file format!")
+        return {'figure': fig, 'message': error_msg}
 
-    result = {'figure': fig, 'message': error_msg}
+    for idx, datas in  enumerate(data_set):
+        try:
+            datas = [eval(i) for i in data_set[idx]]
+        except IndexError:
+            error_msg.append("You input an invalid parameter!")
+            return {'figure': fig, 'message': error_msg}
+        except TypeError:
+            error_msg.append("Please check your file format!")
+            return {'figure': fig, 'message': error_msg}
+
+        ax.hist(datas, bins=data.bin, edgecolor='black', label=data.para[0])
+    
+    # Set the title and labels
+    ax.set_title(title, fontsize=data.plot_title_font)
+    ax.set_xlabel(data.x_title, fontsize=data.x_font)
+    ax.set_ylabel(data.y_title, fontsize=data.y_font)
+    
+    if data.legend == 1:
+        ax.legend()
+        
+    # pack result information
+    result = {'figure': fig, 'message': missing_msg}
+    return result
+
+
+def bihistogram(data):
+    # initialize figure
+    plt.style.use(data.style)
+    fig, ax = plt.subplots(dpi=360)
+    title = data.plot_title
+    error_msg = ["Error!"]
+    try:
+        paraXs = data.para_data.get('datas')
+        missing_msg = data.para_data.get('message')
+    except IndexError:
+        error_msg.append("You input an invalid parameter!")
+        return {'figure': fig, 'message': error_msg}
+
+    
+    ax.hist(paraXs[0], bins=data.bin, edgecolor='black', label=data.para[0])
+    ax.hist(paraXs[1], weights=-np.ones_like(paraXs[0]), bins=data.bin, edgecolor='black', label=data.para[1])
+    # Set the title and labels
+    ax.set_title(title, fontsize=data.plot_title_font)
+    ax.set_xlabel(data.x_title, fontsize=data.x_font)
+    ax.set_ylabel(data.y_title, fontsize=data.y_font)
+    
+    if data.legend == 1:
+        ax.legend()
+
+    # pack result information
+    result = {'figure': fig, 'message': missing_msg}
     return result
 
